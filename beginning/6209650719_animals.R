@@ -1,3 +1,4 @@
+#week1
 human_lifespan <- 122.5
 dog_lifespan <- 24
 dog_lifespan
@@ -99,3 +100,10 @@ arrange(penguins_clean, desc(sample_number))
 
 group_by_sex <- group_by(penguins_clean, sex)
 summarise(group_by_sex, avg_culmen_length_mm = mean(culmen_length_mm, na.rm = T))
+count(penguins_clean, species, sort = T)
+
+#week2
+pg <- select(penguins_clean, individual_id, island, body_mass_g)
+pg <- filter(pg, island=="Dream")
+pg <- mutate(pg, bodymass_kg=body_mass_g/1000) #เพิ่มcolumn
+pg
