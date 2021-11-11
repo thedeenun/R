@@ -106,4 +106,33 @@ count(penguins_clean, species, sort = T)
 pg <- select(penguins_clean, individual_id, island, body_mass_g)
 pg <- filter(pg, island=="Dream")
 pg <- mutate(pg, bodymass_kg=body_mass_g/1000) #เพิ่มcolumn
+pg <- rename(pg, id=individual_id)
 pg
+
+#pip operator
+plot(x=flower$weight, y=flower$height)
+hist(flower$height)
+brk <- seq(from = 0, to = 18, by = 1)
+dens <- density(flower$height)
+hist(flower$height, breaks = brk, main = "petunia height", freq = FALSE)
+lines(dens)
+boxplot(flower$weight, ylab="weight (g)")
+flower$nitrogen <- factor(flower$nitrogen, levels = c("low", "medium", "high"))
+boxplot(weight ~ nitrogen, data= flower, ylab="weight (g)", xlab = "nitrogen level")
+boxplot(weight ~ nitrogen * treat, data= flower, ylab="weight (g)", xlab = "nitrogen level", cex.axis=0.7)
+library(vioplot)
+vioplot(weight ~ nitrogen, data=flower, ylab = "weight(g)", xlab = "nitrogen level", col = "lightblue")
+plot(flower)
+pairs(flower[, c("height", "weight", "leafarea", "shootarea", "flowers")])
+pairs(flower[, c("height", "weight", "leafarea", "shootarea", "flowers")], panel = panel.smooth)
+panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...)
+{
+  usr <- par("usr"); on.exit(par(usr))
+  par(usr = c(0, 1, 0, 1))
+  r <- abs(cor(x, y))
+  txt <- format(c(r, 0.123456789), digits = digits)[1]
+  txt <- paste0(prefix, txt)
+  if(missing(cex.cor)) cex.cor <- 0.8/strwidth(txt)
+  text(0.5, 0.5, txt, cex = cex.cor * r)
+}
+pairs(flower[, c("height", "weight", "leafarea", "shootarea", "flowers")], lower.panel = panel.cor)
